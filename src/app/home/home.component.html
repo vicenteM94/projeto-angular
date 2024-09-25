@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="search-bar">
+    <po-input
+      p-label="Pesquisar por título"
+      [(ngModel)]="searchTitle"
+      (ngModelChange)="searchPosts()"
+    ></po-input>
+  </div>
+
+  <div *ngIf="isLoading">Carregando posts...</div>
+
+  <div *ngIf="!isLoading && paginatedPosts.length > 0">
+    <div *ngFor="let post of paginatedPosts" (click)="viewPost(post)" class="post-item">
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.body }}</p>
+      <hr />
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && noPostsFound">
+    <p>Nenhum post encontrado.</p>
+  </div>
+
+  <div class="pagination" *ngIf="!isLoading && paginatedPosts.length > 0">
+    <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+      Anterior
+    </button>
+
+    <button *ngFor="let page of [].constructor(totalPages()); let i = index"
+      (click)="changePage(i + 1)">
+      {{ i + 1 }}
+    </button>
+
+    <button [disabled]="currentPage === totalPages()" (click)="changePage(currentPage + 1)">
+      Próximo
+    </button>
+  </div>
+</div>

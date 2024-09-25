@@ -1,0 +1,9 @@
+<div *ngIf="post">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+    <a routerLink="/">Voltar para a lista de posts</a>
+  </div>
+  <div *ngIf="!post">
+    <p>Post não encontrado.</p>
+  </div>
+  
